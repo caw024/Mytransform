@@ -33,4 +33,56 @@ The file follows the following format:
 See the file script for an example of the file format
 """
 def parse_file( fname, points, transform, screen, color ):
-    pass
+    f = open(fname,'r')
+    #list of things
+    lines = f.read().split('\n')
+    size = len(lines)-1
+    curr = 0
+    while curr <= size:
+        if lines[curr] == 'line':
+            args = lines[curr+1].split(' ')
+            argint = [int(x) for x in args]
+            add_edge(transform,argint[0],argint[1],argint[2],argint[3],argint[4],argint[5])
+            curr += 2
+        elif lines[curr] == 'ident':
+            iden(transform)
+            curr+=1
+        elif lines[curr] == 'scale':
+            args = lines[curr+1].split(' ')
+            argint = [int(x) for x in args]
+            smatrix = make_scale(argint[0],argint[1],argint[2])
+            matrix_mult(smatrix,transform)
+            curr += 2
+        elif lines[curr] == 'translate':
+            args = lines[curr+1].split(' ')
+            argint = [int(x) for x in args]
+            tmatrix = make_translate(argint[0],argint[1],argint[2])
+            matrix_mult(tmatrix,transform)
+            curr += 2
+        elif lines[curr] == 'rotate':
+            args = lines[curr+1].split(' ')
+            if args[0] == 'x':
+                rmatrix = make_rotX( int(args[1]) )
+            elif args[0] == 'y':
+                rmatrix = make_rotY( int(args[1]) )
+            elif args[0] == 'z':
+                rmatrix = make_rotZ( int(args[1]) )
+            matrix_mult(rmatrix,transform)
+            curr += 2
+        elif lines[curr] == 'apply':
+            matrix_mult(transform,edges)
+            curr+=1
+        elif lines[curr] == 'display':
+            clear_screen(screen)
+            draw_lines(edges,screen,color)
+            display(screen)
+            curr+=1
+        elif lines[curr] == 'save':
+            clear_screen(screen)
+            draw_lines(edges,screen,color)
+            save_extension(screen,lines[curr+1])
+            curr+=2
+        elif lines[curr] == 'quit':
+            f.close()
+            curr = size+1
+    f.close()
