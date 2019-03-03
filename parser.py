@@ -42,10 +42,10 @@ def parse_file( fname, points, transform, screen, color ):
         if lines[curr] == 'line':
             args = lines[curr+1].split(' ')
             argint = [int(x) for x in args]
-            add_edge(transform,argint[0],argint[1],argint[2],argint[3],argint[4],argint[5])
+            add_edge(points,argint[0],argint[1],argint[2],argint[3],argint[4],argint[5])
             curr += 2
         elif lines[curr] == 'ident':
-            iden(transform)
+            ident(transform)
             curr+=1
         elif lines[curr] == 'scale':
             args = lines[curr+1].split(' ')
@@ -70,19 +70,21 @@ def parse_file( fname, points, transform, screen, color ):
             matrix_mult(rmatrix,transform)
             curr += 2
         elif lines[curr] == 'apply':
-            matrix_mult(transform,edges)
+            matrix_mult(transform,points)
             curr+=1
         elif lines[curr] == 'display':
             clear_screen(screen)
-            draw_lines(edges,screen,color)
+            draw_lines(points,screen,color)
             display(screen)
             curr+=1
         elif lines[curr] == 'save':
             clear_screen(screen)
-            draw_lines(edges,screen,color)
+            draw_lines(points,screen,color)
             save_extension(screen,lines[curr+1])
             curr+=2
         elif lines[curr] == 'quit':
             f.close()
             curr = size+1
+        else:
+            curr+=1
     f.close()

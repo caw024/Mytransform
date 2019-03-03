@@ -26,35 +26,32 @@ def make_scale( x, y, z ):
     return smatrix
 
 def make_rotX( theta ):
-    theta /= math.pi
-    theta /= 2.0
+    theta = math.radians(theta)
     rmatrix = new_matrix()
     ident(rmatrix)
     rmatrix[1][1] = math.cos(theta)
-    rmatrix[1][2] = -1 * math.sin(theta)
-    rmatrix[2][1] = math.sin(theta)
+    rmatrix[1][2] = math.sin(theta)
+    rmatrix[2][1] = -1 * math.sin(theta)
     rmatrix[2][2] = math.cos(theta)
     return rmatrix
 
 def make_rotY( theta ):
-    theta /= math.pi
-    theta /= 2.0
+    theta = math.radians(theta)
     rmatrix = new_matrix()
     ident(rmatrix)
     rmatrix[2][2] = math.cos(theta)
-    rmatrix[2][0] = -1 * math.sin(theta)
-    rmatrix[0][2] = math.sin(theta)
+    rmatrix[2][0] = math.sin(theta)
+    rmatrix[0][2] = -1*math.sin(theta)
     rmatrix[0][0] = math.cos(theta)
     return rmatrix
     
 def make_rotZ( theta ):
-    theta /= math.pi
-    theta /= 2.0
+    theta = math.radians(theta)
     rmatrix = new_matrix()
     ident(rmatrix)
     rmatrix[0][0] = math.cos(theta)
-    rmatrix[0][1] = -1 * math.sin(theta)
-    rmatrix[1][0] = math.sin(theta)
+    rmatrix[0][1] = math.sin(theta)
+    rmatrix[1][0] = -1 * math.sin(theta)
     rmatrix[1][1] = math.cos(theta)
     return rmatrix
 

@@ -11,6 +11,8 @@ BLUE = 2
 
 DEFAULT_COLOR = [0, 0, 0]
 
+import math
+
 def new_screen( width = XRES, height = YRES ):
     screen = []
     for y in range( height ):
@@ -21,7 +23,12 @@ def new_screen( width = XRES, height = YRES ):
     return screen
 
 def plot( screen, color, x, y ):
+    x = int(round(x))
+    y = int(round(y))
+
     newy = YRES - 1 - y
+    print "x: " + str(x) + "  y: " + str(y)
+    #x = round(x)
     if ( x >= 0 and x < XRES and newy >= 0 and newy < YRES ):
         screen[newy][x] = color[:]
 

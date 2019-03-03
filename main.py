@@ -9,3 +9,8 @@ edges = []
 transform = new_matrix()
 
 parse_file( 'script', edges, transform, screen, color )
+
+edges = []
+transform = new_matrix()
+
+parse_file( 'myscript', edges, transform, screen, color )
